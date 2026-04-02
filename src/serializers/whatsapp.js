@@ -57,7 +57,7 @@ export async function serializeWhatsApp(sock, raw) {
     }
   }
 
-  const isOwner = config.bot.owner ? sender.includes(config.bot.owner) : false;
+  const isOwner = config.bot.owner.some(id => sender.includes(id));
 
   const m = {
     id: key.id,

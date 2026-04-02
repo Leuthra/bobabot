@@ -35,7 +35,7 @@ export async function serializeTelegram(ctx) {
     }
   }
 
-  const isOwner = config.bot.owner ? sender === config.bot.owner : false;
+  const isOwner = config.bot.owner.includes(sender);
 
   const m = {
     id: String(msg.message_id),

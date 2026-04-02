@@ -9,7 +9,7 @@ vi.mock('../src/services/user.js', () => ({
 
 vi.mock('../src/config/index.js', () => ({
   default: {
-    bot: { prefix: ['!'], owner: '123' },
+    bot: { prefix: ['!'], owner: ['123', '789', 'dc-user'] },
     whatsapp: { sessionId: 'test' },
     log: { level: 'info' },
     isDev: true
@@ -76,5 +76,49 @@ describe('Serializers Platform Consistency', () => {
     expect(m.platform).toBe('discord');
     expect(m.command).toBe('ping');
     expect(m.isGroup).toBe(true);
+  });
+  describe('Multi-Owner Logic', () => {
+    it('should identify owner in WhatsApp', async () => {
+      const mockSock = { user: { id: 'bot' } };
+      const mockMsg = {
+        key: { id: '1', remoteJid: '123@s.whatsapp.net' },
+        message: { conversation: '!hi' },
+      };
+      const m = await serializeWhatsApp(mockSock, mockMsg);
+      expect(m.isOwner).toBe(true);
+    });
+
+    it('should identify owner in Telegram', async () => {
+      const mockCtx = {
+        message: { message_id: 1, text: '!hi' },
+        from: { id: 789 },
+        chat: { id: 789, type: 'private' }
+      };
+      const m = await serializeTelegram(mockCtx);
+      expect(m.isOwner).toBe(true);
+    });
+
+    it('should identify owner in Discord', async () => {
+      const mockClient = { user: { id: 'bot' } };
+      const mockMsg = {
+        id: '1',
+        author: { id: 'dc-user' },
+        channelID: '1',
+        content: '!hi',
+        attachments: new Map()
+      };
+      const m = await serializeDiscord(mockClient, mockMsg);
+      expect(m.isOwner).toBe(true);
+    });
+
+    it('should NOT identify random user as owner', async () => {
+      const mockCtx = {
+        message: { message_id: 1, text: '!hi' },
+        from: { id: 999 },
+        chat: { id: 999, type: 'private' }
+      };
+      const m = await serializeTelegram(mockCtx);
+      expect(m.isOwner).toBe(false);
+    });
   });
 });

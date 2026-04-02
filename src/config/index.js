@@ -7,7 +7,7 @@ const config = {
   bot: {
     name: process.env.BOT_NAME || "Bobabot",
     prefix: (process.env.BOT_PREFIX || "!").split(",").map((p) => p.trim()),
-    owner: process.env.BOT_OWNER || "",
+    owner: (process.env.BOT_OWNER || '').split(',').map(id => id.trim()).filter(Boolean),
   },
 
   whatsapp: {

@@ -33,7 +33,7 @@ export async function serializeDiscord(client, msg) {
     }
   }
 
-  const isOwner = config.bot.owner ? sender === config.bot.owner : false;
+  const isOwner = config.bot.owner.includes(sender);
 
   const m = {
     id: msg.id,
