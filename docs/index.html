@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bobabot v2.0 — Omnichannel Bot Engine</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Bobabot v2.0 is a professional, modular omnichannel bot engine supporting WhatsApp, Telegram, and Discord. Built for developers who want to scale fast.">
+    <meta name="keywords" content="bot engine, whatsapp bot, telegram bot, discord bot, omnichannel, nodejs, prisma, automation">
+    <meta name="author" content="Romi Muharom">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/Leuthra/bobabot">
+    <meta property="og:title" content="Bobabot v2.0 — Omnichannel Bot Engine">
+    <meta property="og:description" content="Professional, modular omnichannel bot engine supporting WhatsApp, Telegram, and Discord.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Leuthra/bobabot/main/docs/preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://github.com/Leuthra/bobabot">
+    <meta property="twitter:title" content="Bobabot v2.0 — Omnichannel Bot Engine">
+    <meta property="twitter:description" content="Professional, modular omnichannel bot engine supporting WhatsApp, Telegram, and Discord.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/Leuthra/bobabot/main/docs/preview.png">
+
+    <!-- Fonts: Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#FFFDF5',
+                        'neo-accent': '#FF6B6B',
+                        'neo-secondary': '#FFD93D',
+                        'neo-muted': '#C4B5FD',
+                    },
+                    fontFamily: {
+                        'space': ['Space Grotesk', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neo-sm': '4px 4px 0px 0px #000',
+                        'neo-md': '8px 8px 0px 0px #000',
+                        'neo-lg': '12px 12px 0px 0px #000',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FFFDF5;
+            background-image: radial-gradient(#000 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .neo-border {
+            border: 4px solid #000;
+        }
+        .neo-button:active {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+        }
+        .neo-card-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 12px 12px 0px 0px #000;
+        }
+        .neo-stroke {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+        }
+    </style>
+</head>
+<body class="font-space overflow-x-hidden text-black selection:bg-neo-secondary">
+
+    <!-- Marquee Banner -->
+    <div class="neo-border border-x-0 bg-neo-secondary overflow-hidden py-2 whitespace-nowrap">
+        <div class="inline-block animate-marquee uppercase font-black text-sm tracking-widest">
+            ONE ENGINE. THREE PLATFORMS. UNLIMITED POSSIBILITIES. • WHATSAPP • TELEGRAM • DISCORD • ONE ENGINE. THREE PLATFORMS. UNLIMITED POSSIBILITIES. • WHATSAPP • TELEGRAM • DISCORD • 
+            ONE ENGINE. THREE PLATFORMS. UNLIMITED POSSIBILITIES. • WHATSAPP • TELEGRAM • DISCORD • ONE ENGINE. THREE PLATFORMS. UNLIMITED POSSIBILITIES. • WHATSAPP • TELEGRAM • DISCORD • 
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="container mx-auto px-6 py-20 lg:py-32 flex flex-col items-center">
+        <div class="relative inline-block mb-8">
+            <span class="p-2 neo-border bg-neo-muted absolute -top-8 -left-12 -rotate-12 uppercase font-black text-xs tracking-widest shadow-neo-sm">
+                Omnichannel V2.0
+            </span>
+            <h1 class="text-7xl md:text-9xl font-black uppercase leading-none text-center">
+                BOBA<span class="neo-stroke">BOT</span>
+            </h1>
+        </div>
+        
+        <p class="text-2xl md:text-3xl font-bold text-center max-w-3xl mb-12 -rotate-1">
+            A <span class="bg-neo-secondary px-2">digital-punk rebellion</span> against boring bot development. Build once, deploy across WhatsApp, Telegram, and Discord.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6">
+            <a href="https://github.com/Leuthra/bobabot" class="neo-button h-14 px-10 bg-neo-accent neo-border shadow-neo-md flex items-center justify-center font-black uppercase tracking-widest transition-all duration-100">
+                Get Started
+            </a>
+            <a href="#features" class="neo-button h-14 px-10 bg-white neo-border shadow-neo-md flex items-center justify-center font-black uppercase tracking-widest transition-all duration-100">
+                Learn More
+            </a>
+        </div>
+    </header>
+
+    <!-- Platform Stickers -->
+    <section class="container mx-auto px-6 py-12 flex flex-wrap justify-center gap-8 overflow-visible">
+        <div class="p-6 neo-border bg-white shadow-neo-lg rotate-3 flex items-center gap-4">
+            <div class="h-10 w-10 bg-green-500 rounded-full neo-border"></div>
+            <span class="font-black uppercase">WhatsApp</span>
+        </div>
+        <div class="p-6 neo-border bg-white shadow-neo-lg -rotate-2 flex items-center gap-4">
+            <div class="h-10 w-10 bg-blue-500 rounded-full neo-border"></div>
+            <span class="font-black uppercase">Telegram</span>
+        </div>
+        <div class="p-6 neo-border bg-white shadow-neo-lg rotate-1 flex items-center gap-4">
+            <div class="h-10 w-10 bg-indigo-500 rounded-full neo-border"></div>
+            <span class="font-black uppercase">Discord</span>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <main id="features" class="bg-neo-muted neo-border border-x-0 py-24 mt-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl md:text-7xl font-black uppercase mb-16 -rotate-1 inline-block bg-neo-secondary neo-border px-4 py-2 shadow-neo-md">
+                CORE FEATURES
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Card 1 -->
+                <div class="bg-white neo-border p-8 shadow-neo-md transition-all duration-200 neo-card-lift">
+                    <div class="h-16 w-16 bg-neo-secondary neo-border mb-6 flex items-center justify-center font-black text-2xl shadow-neo-sm">
+                        01
+                    </div>
+                    <h3 class="text-2xl font-black uppercase mb-4">Universal Context</h3>
+                    <p class="font-bold text-black/70">
+                        Write your plugin business logic and logic once. Our engine handles the platform-specific heavy lifting seamlessly.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white neo-border p-8 shadow-neo-md transition-all duration-200 neo-card-lift -rotate-1">
+                    <div class="h-16 w-16 bg-neo-accent neo-border mb-6 flex items-center justify-center font-black text-2xl shadow-neo-sm text-white">
+                        02
+                    </div>
+                    <h3 class="text-2xl font-black uppercase mb-4">Event-Driven</h3>
+                    <p class="font-bold text-black/70">
+                        Built on a high-performance EventBus architecture. Scales effortlessly and keeps components decoupled and fast.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white neo-border p-8 shadow-neo-md transition-all duration-200 neo-card-lift rotate-1">
+                    <div class="h-16 w-16 bg-neo-muted neo-border mb-6 flex items-center justify-center font-black text-2xl shadow-neo-sm">
+                        03
+                    </div>
+                    <h3 class="text-2xl font-black uppercase mb-4">RESTful API</h3>
+                    <p class="font-bold text-black/70">
+                        Built-in Hono power-server for broadcasts, user management, and remote triggers via simple HTTP requests.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Code Block -->
+    <section class="container mx-auto px-6 py-32 flex flex-col lg:flex-row gap-16 items-center">
+        <div class="flex-1">
+            <h2 class="text-5xl font-black uppercase mb-8 leading-tight">
+                SIMPLE PLUGIN <br> <span class="bg-neo-accent text-white px-2">ARCHITECTURE</span>
+            </h2>
+            <ul class="space-y-4 font-bold text-xl">
+                <li class="flex gap-4">
+                    <span class="neo-border bg-neo-secondary h-8 w-8 flex-shrink-0 flex items-center justify-center text-sm">✓</span>
+                    Fully Documented JSDoc
+                </li>
+                <li class="flex gap-4">
+                    <span class="neo-border bg-neo-secondary h-8 w-8 flex-shrink-0 flex items-center justify-center text-sm">✓</span>
+                    Stateless & Prisma Backed
+                </li>
+                <li class="flex gap-4">
+                    <span class="neo-border bg-neo-secondary h-8 w-8 flex-shrink-0 flex items-center justify-center text-sm">✓</span>
+                    51+ Automated Test Cases
+                </li>
+            </ul>
+        </div>
+        <div class="flex-1 w-full">
+            <div class="neo-border bg-black shadow-neo-lg p-1 overflow-hidden">
+                <div class="bg-neo-secondary neo-border border-b-0 p-3 flex gap-2">
+                    <div class="h-3 w-3 rounded-full neo-border bg-red-400"></div>
+                    <div class="h-3 w-3 rounded-full neo-border bg-yellow-400"></div>
+                    <div class="h-3 w-3 rounded-full neo-border bg-green-400"></div>
+                </div>
+                <pre class="bg-white p-6 font-mono text-sm leading-relaxed overflow-x-auto">
+<span class="text-pink-600">export default</span> {
+  command: [<span class="text-green-600">'hello'</span>],
+  <span class="text-blue-600">execute</span>: <span class="text-pink-600">async</span> (m) => {
+    <span class="text-pink-600">await</span> m.reply(<span class="text-green-600">'Hello Omnichannel!'</span>);
+  }
+};
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-neo-bg py-20 px-6 border-t-8 border-black">
+        <div class="container mx-auto flex flex-col items-center">
+            <div class="text-4xl font-black uppercase mb-8 tracking-widest border-4 border-neo-bg px-4 py-2">
+                BOBABOT V2
+            </div>
+            <p class="font-bold opacity-70 mb-8 max-w-xl text-center">
+                Designed for speed, built for chaos, documenting for the community. Licensed under MIT.
+            </p>
+            <div class="flex gap-8 font-black uppercase text-sm">
+                <a href="https://github.com/Leuthra/bobabot" class="hover:text-neo-accent transition-colors underline decoration-4 underline-offset-8" target="_blank">GitHub</a>
+                <a href="https://github.com/Leuthra/bobabot#documentation" class="hover:text-neo-secondary transition-colors underline decoration-4 underline-offset-8" target="_blank">Docs</a>
+                <a href="https://github.com/Leuthra/bobabot/blob/main/LICENSE" class="hover:text-neo-muted transition-colors underline decoration-4 underline-offset-8" target="_blank">License</a>
+            </div>
+            <div class="mt-16 text-xs font-bold opacity-40 uppercase tracking-[0.5em]">
+                © 2026 Romi Muharom • Digital Junkies Only
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

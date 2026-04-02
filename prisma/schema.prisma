@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id        String   @id
+  data      String
+  updatedAt DateTime @updatedAt
+}
+
+model AuthKey {
+  sessionId String
+  type      String
+  keyId     String
+  data      String
+
+  @@id([sessionId, type, keyId])
+}
+
+model LidMapping {
+  lid       String   @id
+  pn        String   @unique
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id         String    @id @default(cuid())
+  platformId String
+  platform   String
+  name       String    @default("")
+  level      Int       @default(0)
+  exp        Int       @default(0)
+  limit      Int       @default(25)
+  isPremium  Boolean   @default(false)
+  premiumAt  DateTime?
+  premiumEnd DateTime?
+  isBanned   Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([platformId, platform])
+  @@index([platformId])
+}
