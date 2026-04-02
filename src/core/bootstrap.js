@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { connectDatabase, disconnectDatabase } from '../services/database.js';
-import { loadPlugins, loadMiddleware, startPluginHandler } from '../core/pluginLoader.js';
+import { loadPlugins, loadMiddlewares, startPluginHandler } from '../core/pluginLoader.js';
 import { startCleanup, stopCleanup } from '../core/idempotency.js';
 import { startAPI } from '../api/routes.js';
 import { WhatsAppAdapter } from '../adapters/whatsapp/index.js';
@@ -25,9 +25,7 @@ export async function bootstrap() {
   await connectDatabase();
 
   const pluginsDir = join(__dirname, '..', 'plugins');
-  const middlewarePath = join(pluginsDir, '_middleware.js');
-
-  await loadMiddleware(middlewarePath);
+  await loadMiddlewares(pluginsDir);
   await loadPlugins(pluginsDir);
   startPluginHandler();
 

@@ -73,18 +73,42 @@ export function getCommandIndex() {
   return commandIndex;
 }
 
-let middlewareFn = null;
+const middlewares = [];
 
-/** @param {string} middlewarePath */
-export async function loadMiddleware(middlewarePath) {
-  try {
-    const fileUrl = pathToFileURL(middlewarePath).href;
-    const mod = await import(fileUrl);
-    middlewareFn = mod.default;
-    log.info('Global middleware loaded');
-  } catch (err) {
-    log.warn({ err: err.message }, 'No global middleware found');
+/** @param {string} pluginsDir */
+export async function loadMiddlewares(pluginsDir) {
+  const entries = await readdir(pluginsDir, { withFileTypes: true });
+  const files = entries
+    .filter(e => e.isFile() && e.name.endsWith('.js') && e.name.startsWith('_'))
+    .map(e => join(pluginsDir, e.name));
+
+  for (const file of files) {
+    try {
+      const fileUrl = pathToFileURL(file).href;
+      const mod = await import(fileUrl);
+      if (typeof mod.default === 'function') {
+        middlewares.push(mod.default);
+        log.info({ file: relative(pluginsDir, file) }, 'Middleware loaded');
+      }
+    } catch (err) {
+      log.error({ file, err: err.message }, 'Failed to load middleware');
+    }
   }
+}
+
+/** @param {object} m @param {function} finalAction */
+async function runMiddlewares(m, finalAction) {
+  let index = -1;
+
+  const dispatch = async (i) => {
+    if (i <= index) return Promise.reject(new Error('next() called multiple times'));
+    index = i;
+    const fn = i === middlewares.length ? finalAction : middlewares[i];
+    if (!fn) return;
+    return fn(m, () => dispatch(i + 1));
+  };
+
+  return dispatch(0);
 }
 
 const VALIDATION_MESSAGES = {
@@ -101,16 +125,12 @@ async function handleMessage(m) {
   if (isDuplicate(m.id)) return;
   if (m.user?.isBanned) return;
 
-  if (middlewareFn) {
-    const proceed = await middlewareFn(m);
-    if (proceed === false) return;
-  }
+  await runMiddlewares(m, async () => {
+    const pluginId = commandIndex.get(m.command);
+    if (!pluginId) return;
 
-  const pluginId = commandIndex.get(m.command);
-  if (!pluginId) return;
-
-  const plugin = plugins.get(pluginId);
-  if (!plugin) return;
+    const plugin = plugins.get(pluginId);
+    if (!plugin) return;
 
   if (plugin.isGroup && !m.isGroup) {
     return m.reply(VALIDATION_MESSAGES.isGroup);
@@ -136,6 +156,7 @@ async function handleMessage(m) {
     eventBus.emit('plugin.error', { command: m.command, error: err, m });
     await m.reply('❌ An error occurred while executing the command.').catch(() => {});
   }
+  });
 }
 
 export function startPluginHandler() {

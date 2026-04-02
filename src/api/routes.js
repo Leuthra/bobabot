@@ -4,20 +4,23 @@ import { bearerAuth } from 'hono/bearer-auth';
 import { getStatus, broadcastMessage, getUsers, updateUser } from './controllers.js';
 import { createLogger } from '../utils/logger.js';
 import config from '../config/index.js';
+import { rateLimitMiddleware } from './middlewares/rateLimit.js';
 
 const log = createLogger('api');
 
-export const app = new Hono();
+export const app = new Hono().basePath('/api');
 
-app.get('/api/status', getStatus);
+app.use('*', rateLimitMiddleware);
+
+app.get('/status', getStatus);
 
 if (config.api.secret) {
-  app.use('/api/*', bearerAuth({ token: config.api.secret }));
+  app.use('*', bearerAuth({ token: config.api.secret }));
 }
 
-app.post('/api/broadcast', broadcastMessage);
-app.get('/api/users', getUsers);
-app.patch('/api/users/:id', updateUser);
+app.post('/broadcast', broadcastMessage);
+app.get('/users', getUsers);
+app.patch('/users/:id', updateUser);
 
 /** @param {number} [port] */
 export function startAPI(port) {

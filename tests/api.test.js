@@ -34,7 +34,11 @@ vi.mock('../src/services/database.js', () => ({
 
 vi.mock('../src/config/index.js', () => ({
   default: {
-    api: { port: 3000, secret: 'test-secret' },
+    api: { 
+      port: 3000, 
+      secret: 'test-secret',
+      limit: { max: 10, window: 60000 }
+    },
     bot: { name: 'Bobabot' },
     log: { level: 'info' },
     isDev: true
